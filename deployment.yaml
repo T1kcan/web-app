@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-todo
+  labels:
+    app: web-todo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: web-todo-pod
+  template:
+    metadata:
+      name: web-todo
+      labels:
+        name: web-todo-pod
+    spec:
+      containers:
+        - name: web-todo
+          image: acrstablemint.azurecr.io/web-todo:${{ github.sha }}
+          ports:
+          - containerPort: 8080
